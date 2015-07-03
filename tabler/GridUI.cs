@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using tabler.Helper;
 using tabler.Properties;
 
 namespace tabler {
@@ -11,6 +12,9 @@ namespace tabler {
         public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
 
+        private const string RELEASE_URL = "https://api.github.com/repos/bux578/tabler/releases";
+        //private const string RELEASE_URL = "http://joquery.com/robots.txt";
+
         public GridUI() {
             InitializeComponent();
             ConfigHelper = new ConfigHelper();
@@ -18,6 +22,14 @@ namespace tabler {
         }
 
         #region " Events "
+
+        private async void GridUI_Load(object sender, EventArgs e) {
+            var ghHelper = new GitHubHelper();
+           // var json = await ghHelper.GetJsonAsync(RELEASE_URL);
+
+            var test = await ghHelper.GetUrlContentsAsync(RELEASE_URL);
+
+        }
 
         private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e) {
             string curPath = "";
@@ -120,5 +132,7 @@ namespace tabler {
                 }
             }
         }
+
+
     }
 }
